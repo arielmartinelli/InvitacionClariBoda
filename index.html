@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invitación de Boda — [Nombres]</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fff9f7;
+      --accent-1:#f6d4d0;
+      --accent-2:#ffefe8;
+      --text:#2b2b2b;
+      --muted:#6b6b6b;
+      --gold: #d6a06d;
+      --glass: rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,var(--accent-2),var(--bg));color:var(--text);}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+
+    /* Hero */
+    .hero{min-height:80vh;display:grid;grid-template-columns:1fr;align-items:center;gap:24px;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 10% 10%, rgba(214,160,109,0.12), transparent 8%), radial-gradient(circle at 90% 90%, rgba(246,212,208,0.08), transparent 12%);pointer-events:none}
+    .hero-inner{display:flex;flex-direction:column;align-items:center;text-align:center;padding:32px;border-radius:20px;backdrop-filter: blur(6px);}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,56px);margin:8px 0 4px}
+    .sub{font-size:clamp(14px,2.2vw,18px);color:var(--muted);margin-bottom:12px}
+    .date{display:inline-block;padding:8px 18px;border-radius:999px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));box-shadow:0 6px 18px rgba(42,20,10,0.06);font-weight:600}
+
+    /* Invitation card */
+    .card-wrap{display:flex;justify-content:center;margin-top:18px}
+    .card{width:320px;max-width:84vw;padding:28px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,0.85),rgba(255,255,255,0.7));box-shadow:0 10px 30px rgba(22,22,22,0.08);transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.9,.3,1)}
+    .card:hover{transform:rotateX(6deg) rotateY(-6deg) translateY(-6px)}
+    .names{font-family:'Playfair Display',serif;font-size:22px;margin:0}
+    .details{font-size:14px;color:var(--muted);margin-top:6px}
+
+    /* RSVP button */
+    .btn{margin-top:18px;display:inline-block;padding:12px 22px;border-radius:999px;background:linear-gradient(90deg,var(--gold),#f0cfa0);border:0;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(214,160,109,0.18)}
+
+    /* Sections */
+    section{padding:48px 0}
+    .grid{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start}
+    .info{background:var(--glass);padding:22px;border-radius:14px}
+
+    /* Gallery / timeline */
+    .timeline{display:flex;flex-direction:column;gap:18px}
+    .timeline .item{padding:14px;border-radius:12px;background:rgba(255,255,255,0.9);border-left:4px solid var(--gold);opacity:0;transform:translateY(22px);transition:all .7s cubic-bezier(.2,.9,.3,1)}
+    .item.show{opacity:1;transform:none}
+
+    /* Footer */
+    footer{padding:24px 0;text-align:center;color:var(--muted);font-size:14px}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(12,12,12,0.45);opacity:0;pointer-events:none;transition:opacity .25s}
+    .modal.open{opacity:1;pointer-events:auto}
+    .modal-card{width:92%;max-width:520px;background:#fff;padding:22px;border-radius:12px;box-shadow:0 18px 48px rgba(10,10,10,0.2)}
+    .close{float:right;background:none;border:0;font-size:18px;cursor:pointer}
+    label{display:block;font-size:13px;margin-top:12px;color:var(--muted)}
+    input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid #eee;margin-top:6px;font-size:14px}
+
+    /* small screens */
+    @media (max-width:880px){.grid{grid-template-columns:1fr} .hero{min-height:68vh} .card{width:86%}}
+
+    /* decorative animated florals */
+    .floral{position:absolute;right:-8%;top:-6%;width:360px;height:360px;opacity:0.12;pointer-events:none;transform:rotate(8deg)}
+    .floral svg{width:100%;height:100%}
+
+    /* smooth text reveal */
+    .reveal{opacity:0;transform:translateY(16px);transition:all .65s ease-out}
+    .reveal.show{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="hero-inner">
+        <div style="position:relative;z-index:2">
+          <p class="sub">Estás cordialmente invitado a celebrar</p>
+          <h1 class="reveal">Ana &amp; Martín</h1>
+          <div class="date reveal">Sábado 15 de Noviembre, 2025 — 17:00</div>
+        </div>
+
+        <div class="card-wrap">
+          <article class="card reveal" id="inviteCard" aria-label="Tarjeta de invitación">
+            <p class="names">Ana María García</p>
+            <p class="names" style="font-size:18px">&amp;</p>
+            <p class="names">Martín López</p>
+            <p class="details">Iglesia Nuestra Señora del Valle — Córdoba, Argentina</p>
+            <p class="details">Recepción: Salón Los Olivos — 20:00</p>
+            <button class="btn" id="rsvpBtn">Confirmar asistencia</button>
+          </article>
+        </div>
+      </div>
+
+      <div class="floral" aria-hidden="true">
+        <!-- simple inline svg decorativo -->
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="black" stroke-opacity="0.6" stroke-width="1">
+            <path d="M21 60 C45 20, 110 10, 160 40" stroke-opacity="0.06"/>
+            <circle cx="30" cy="30" r="20" fill="none" stroke-opacity="0.06"/>
+          </g>
+        </svg>
+      </div>
+    </header>
+
+    <main>
+      <section class="grid">
+        <div>
+          <h2 class="reveal">Programa</h2>
+          <div class="timeline" id="timeline">
+            <div class="item reveal">17:00 — Ceremonia religiosa</div>
+            <div class="item reveal">18:30 — Fotos y cóctel</div>
+            <div class="item reveal">20:00 — Cena y baile</div>
+          </div>
+
+          <h2 class="reveal">Cómo llegar</h2>
+          <div class="info reveal">
+            <p>Dirección: Av. Principal 123 - Córdoba. Habrá transporte desde el hotel X (confirmar).</p>
+            <p class="muted">Se recomienda estacionamiento en el predio del salón.</p>
+          </div>
+        </div>
+
+        <aside class="info reveal">
+          <h3 style="margin-top:0">Detalles útiles</h3>
+          <p><strong>Vestimenta:</strong> Formal elegante.</p>
+          <p><strong>Regalos:</strong> Si querés, lista en Casa de Novias — opción "Ana &amp; Martín".</p>
+          <p><strong>Contacto:</strong> +54 9 351 1234567</p>
+        </aside>
+      </section>
+
+      <section>
+        <h2 class="reveal">Confirmaciones</h2>
+        <p class="reveal">Podés confirmar tu asistencia con el botón "Confirmar asistencia" o dejando un mensaje en la siguiente sección.</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>¡Esperamos celebrar con vos! — Ana &amp; Martín</p>
+    </footer>
+  </div>
+
+  <!-- Modal RSVP -->
+  <div class="modal" id="modal">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="close" id="closeModal" aria-label="Cerrar">✕</button>
+      <h3 id="modalTitle">Confirmar asistencia</h3>
+      <form id="rsvpForm">
+        <label for="name">Nombre completo</label>
+        <input id="name" name="name" required placeholder="Ej: Juan Pérez" />
+        <label for="guests">¿Cuántos invitados?</label>
+        <select id="guests" name="guests">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4+</option>
+        </select>
+        <label for="message">Mensaje (opcional)</label>
+        <textarea id="message" name="message" rows="3" placeholder="Saludo, alergias, comida vegana..."></textarea>
+        <button class="btn" type="submit" style="margin-top:16px">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Scroll parallax effect for hero title
+    window.addEventListener('scroll',() => {
+      const hero = document.querySelector('.hero');
+      const y = window.scrollY;
+      hero.style.transform = `translateY(${y * 0.03}px)`;
+    });
+
+    // Intersection Observer: reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting) e.target.classList.add('show');
+      });
+    },{threshold:0.12});
+    reveals.forEach(r => obs.observe(r));
+
+    // Timeline items appear with stagger
+    const timeline = document.querySelectorAll('.timeline .item');
+    timeline.forEach((it,i)=>{
+      setTimeout(()=>it.classList.add('show'), 350 + i * 180);
+    });
+
+    // Modal open/close
+    const modal = document.getElementById('modal');
+    document.getElementById('rsvpBtn').addEventListener('click', ()=> modal.classList.add('open'));
+    document.getElementById('closeModal').addEventListener('click', ()=> modal.classList.remove('open'));
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.classList.remove('open'); });
+
+    // Form submit (demo) — aquí podés reemplazar por fetch a tu backend
+    document.getElementById('rsvpForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const guests = document.getElementById('guests').value;
+      const message = document.getElementById('message').value;
+      // Simular envío
+      alert(`Gracias ${name}! Confirmaste ${guests} invitado(s).`);
+      modal.classList.remove('open');
+      e.target.reset();
+    });
+
+    // Accessibility: close modal with Esc
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') modal.classList.remove('open'); });
+  </script>
+</body>
+</html>
