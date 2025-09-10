@@ -1,209 +1,218 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Invitación de Boda — [Nombres]</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación Boda - Clarisa & Benjamín</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
-    :root{
-      --bg:#fff9f7;
-      --accent-1:#f6d4d0;
-      --accent-2:#ffefe8;
-      --text:#2b2b2b;
-      --muted:#6b6b6b;
-      --gold: #d6a06d;
-      --glass: rgba(255,255,255,0.6);
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(to bottom, #fff8f0, #fcebe8);
+      color: #333;
+      overflow-x: hidden;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,var(--accent-2),var(--bg));color:var(--text);}
-    .container{max-width:1100px;margin:0 auto;padding:24px}
-
-    /* Hero */
-    .hero{min-height:80vh;display:grid;grid-template-columns:1fr;align-items:center;gap:24px;position:relative;overflow:hidden}
-    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 10% 10%, rgba(214,160,109,0.12), transparent 8%), radial-gradient(circle at 90% 90%, rgba(246,212,208,0.08), transparent 12%);pointer-events:none}
-    .hero-inner{display:flex;flex-direction:column;align-items:center;text-align:center;padding:32px;border-radius:20px;backdrop-filter: blur(6px);}
-    h1{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,56px);margin:8px 0 4px}
-    .sub{font-size:clamp(14px,2.2vw,18px);color:var(--muted);margin-bottom:12px}
-    .date{display:inline-block;padding:8px 18px;border-radius:999px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));box-shadow:0 6px 18px rgba(42,20,10,0.06);font-weight:600}
-
-    /* Invitation card */
-    .card-wrap{display:flex;justify-content:center;margin-top:18px}
-    .card{width:320px;max-width:84vw;padding:28px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,0.85),rgba(255,255,255,0.7));box-shadow:0 10px 30px rgba(22,22,22,0.08);transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.9,.3,1)}
-    .card:hover{transform:rotateX(6deg) rotateY(-6deg) translateY(-6px)}
-    .names{font-family:'Playfair Display',serif;font-size:22px;margin:0}
-    .details{font-size:14px;color:var(--muted);margin-top:6px}
-
-    /* RSVP button */
-    .btn{margin-top:18px;display:inline-block;padding:12px 22px;border-radius:999px;background:linear-gradient(90deg,var(--gold),#f0cfa0);border:0;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(214,160,109,0.18)}
-
-    /* Sections */
-    section{padding:48px 0}
-    .grid{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start}
-    .info{background:var(--glass);padding:22px;border-radius:14px}
-
-    /* Gallery / timeline */
-    .timeline{display:flex;flex-direction:column;gap:18px}
-    .timeline .item{padding:14px;border-radius:12px;background:rgba(255,255,255,0.9);border-left:4px solid var(--gold);opacity:0;transform:translateY(22px);transition:all .7s cubic-bezier(.2,.9,.3,1)}
-    .item.show{opacity:1;transform:none}
-
-    /* Footer */
-    footer{padding:24px 0;text-align:center;color:var(--muted);font-size:14px}
-
-    /* Modal */
-    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(12,12,12,0.45);opacity:0;pointer-events:none;transition:opacity .25s}
-    .modal.open{opacity:1;pointer-events:auto}
-    .modal-card{width:92%;max-width:520px;background:#fff;padding:22px;border-radius:12px;box-shadow:0 18px 48px rgba(10,10,10,0.2)}
-    .close{float:right;background:none;border:0;font-size:18px;cursor:pointer}
-    label{display:block;font-size:13px;margin-top:12px;color:var(--muted)}
-    input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid #eee;margin-top:6px;font-size:14px}
-
-    /* small screens */
-    @media (max-width:880px){.grid{grid-template-columns:1fr} .hero{min-height:68vh} .card{width:86%}}
-
-    /* decorative animated florals */
-    .floral{position:absolute;right:-8%;top:-6%;width:360px;height:360px;opacity:0.12;pointer-events:none;transform:rotate(8deg)}
-    .floral svg{width:100%;height:100%}
-
-    /* smooth text reveal */
-    .reveal{opacity:0;transform:translateY(16px);transition:all .65s ease-out}
-    .reveal.show{opacity:1;transform:none}
+    header {
+      text-align: center;
+      padding: 80px 20px;
+      background: url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      color: white;
+      position: relative;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+    }
+    header h1, header p {
+      position: relative;
+      z-index: 2;
+    }
+    header h1 {
+      font-size: 3em;
+    }
+    header p {
+      font-size: 1.2em;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .historia {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .historia .texto {
+      flex: 1 1 400px;
+      font-size: 1.1em;
+      line-height: 1.6;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+    .historia .imagen {
+      flex: 1 1 300px;
+      text-align: center;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 0.3s;
+      opacity: 0;
+    }
+    .historia .imagen img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .mapa iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .precio {
+      background: #fff0f5;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.2em;
+      margin-top: 40px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .rsvp {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .rsvp h2 {
+      margin-bottom: 20px;
+      font-size: 1.5em;
+    }
+    .rsvp button {
+      border: none;
+      padding: 14px 28px;
+      margin: 10px;
+      border-radius: 30px;
+      font-size: 1.1em;
+      cursor: pointer;
+      color: white;
+      transition: all 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .btn-si {
+      background: linear-gradient(45deg, #38ef7d, #11998e);
+    }
+    .btn-no {
+      background: linear-gradient(45deg, #ff6a88, #ff99ac);
+    }
+    .novios {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .novios img {
+      width: 280px;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    .novios img:hover {
+      transform: scale(1.05);
+    }
+    .itinerario {
+      margin-top: 50px;
+    }
+    .timeline {
+      list-style: none;
+      padding: 0;
+      position: relative;
+    }
+    .timeline li {
+      background: #fff;
+      border-left: 4px solid #e0aaff;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
+    }
+    .timeline li:nth-child(1) { animation-delay: 0.2s; }
+    .timeline li:nth-child(2) { animation-delay: 0.4s; }
+    .timeline li:nth-child(3) { animation-delay: 0.6s; }
+    .timeline li:nth-child(4) { animation-delay: 0.8s; }
+    .timeline li:nth-child(5) { animation-delay: 1s; }
+    @keyframes fadeInUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="hero">
-      <div class="hero-inner">
-        <div style="position:relative;z-index:2">
-          <p class="sub">Estás cordialmente invitado a celebrar</p>
-          <h1 class="reveal">Ana &amp; Martín</h1>
-          <div class="date reveal">Sábado 15 de Noviembre, 2025 — 17:00</div>
-        </div>
+  <header>
+    <h1>💍 Clarisa & Benjamín 💍</h1>
+    <p>¡Nos casamos! Y queremos compartir este momento contigo ✨</p>
+  </header>
 
-        <div class="card-wrap">
-          <article class="card reveal" id="inviteCard" aria-label="Tarjeta de invitación">
-            <p class="names">Ana María García</p>
-            <p class="names" style="font-size:18px">&amp;</p>
-            <p class="names">Martín López</p>
-            <p class="details">Iglesia Nuestra Señora del Valle — Córdoba, Argentina</p>
-            <p class="details">Recepción: Salón Los Olivos — 20:00</p>
-            <button class="btn" id="rsvpBtn">Confirmar asistencia</button>
-          </article>
-        </div>
-      </div>
-
-      <div class="floral" aria-hidden="true">
-        <!-- simple inline svg decorativo -->
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <g fill="none" stroke="black" stroke-opacity="0.6" stroke-width="1">
-            <path d="M21 60 C45 20, 110 10, 160 40" stroke-opacity="0.06"/>
-            <circle cx="30" cy="30" r="20" fill="none" stroke-opacity="0.06"/>
-          </g>
-        </svg>
-      </div>
-    </header>
-
-    <main>
-      <section class="grid">
-        <div>
-          <h2 class="reveal">Programa</h2>
-          <div class="timeline" id="timeline">
-            <div class="item reveal">17:00 — Ceremonia religiosa</div>
-            <div class="item reveal">18:30 — Fotos y cóctel</div>
-            <div class="item reveal">20:00 — Cena y baile</div>
-          </div>
-
-          <h2 class="reveal">Cómo llegar</h2>
-          <div class="info reveal">
-            <p>Dirección: Av. Principal 123 - Córdoba. Habrá transporte desde el hotel X (confirmar).</p>
-            <p class="muted">Se recomienda estacionamiento en el predio del salón.</p>
-          </div>
-        </div>
-
-        <aside class="info reveal">
-          <h3 style="margin-top:0">Detalles útiles</h3>
-          <p><strong>Vestimenta:</strong> Formal elegante.</p>
-          <p><strong>Regalos:</strong> Si querés, lista en Casa de Novias — opción "Ana &amp; Martín".</p>
-          <p><strong>Contacto:</strong> +54 9 351 1234567</p>
-        </aside>
-      </section>
-
-      <section>
-        <h2 class="reveal">Confirmaciones</h2>
-        <p class="reveal">Podés confirmar tu asistencia con el botón "Confirmar asistencia" o dejando un mensaje en la siguiente sección.</p>
-      </section>
-    </main>
-
-    <footer>
-      <p>¡Esperamos celebrar con vos! — Ana &amp; Martín</p>
-    </footer>
-  </div>
-
-  <!-- Modal RSVP -->
-  <div class="modal" id="modal">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button class="close" id="closeModal" aria-label="Cerrar">✕</button>
-      <h3 id="modalTitle">Confirmar asistencia</h3>
-      <form id="rsvpForm">
-        <label for="name">Nombre completo</label>
-        <input id="name" name="name" required placeholder="Ej: Juan Pérez" />
-        <label for="guests">¿Cuántos invitados?</label>
-        <select id="guests" name="guests">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4+</option>
-        </select>
-        <label for="message">Mensaje (opcional)</label>
-        <textarea id="message" name="message" rows="3" placeholder="Saludo, alergias, comida vegana..."></textarea>
-        <button class="btn" type="submit" style="margin-top:16px">Enviar</button>
-      </form>
+  <section class="historia">
+    <div class="texto">
+      <h2>💖 Nuestra Historia</h2>
+      <p>Clarisa y Benjamín se conocieron una tarde de verano, en un encuentro que parecía casual pero que el destino había preparado con cuidado. Desde entonces, cada día compartido fue tejiendo una historia de amor llena de risas, sueños y aventuras. Hoy celebran con quienes más quieren el comienzo de una nueva etapa, uniendo sus vidas para siempre.</p>
     </div>
-  </div>
+    <div class="imagen">
+      <img src="https://static.vecteezy.com/system/resources/previews/003/189/276/non_2x/couple-kissing-line-drawing-minimalist-love-and-romantic-idea-vector.jpg" alt="Ilustración pareja">
+    </div>
+  </section>
 
-  <script>
-    // Scroll parallax effect for hero title
-    window.addEventListener('scroll',() => {
-      const hero = document.querySelector('.hero');
-      const y = window.scrollY;
-      hero.style.transform = `translateY(${y * 0.03}px)`;
-    });
+  <section>
+    <h2>🌸 Detalles de la Boda 🌸</h2>
+    <p>Con mucho amor los invitamos a nuestra celebración el <b>12 de diciembre de 2025</b> en el <b>Salón Las Estrellas, Córdoba</b>. Será una noche llena de magia, música y alegría. 🥂✨</p>
+  </section>
 
-    // Intersection Observer: reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if(e.isIntersecting) e.target.classList.add('show');
-      });
-    },{threshold:0.12});
-    reveals.forEach(r => obs.observe(r));
+  <section class="novios">
+    <img src="https://scontent.fcor9-1.fna.fbcdn.net/v/t39.30808-6/475716980_926313456253146_6989412280730018817_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeH8o3f1jTYBvg1zQvJiW7nrlnI7pW1uDkeWcjulbW4OR5fxeAzldEspwIwlyphRfB9cabr0U4aAbAhsr7wKRZgX&_nc_ohc=KiXSFOISf2sQ7kNvwGSaQ2D&_nc_oc=AdlEt2fW2dF1Y28NTeF-Et52brZJCHVDFpaajApltH4FCpOoHc3VjPg98BH0RlfUN1A&_nc_zt=23&_nc_ht=scontent.fcor9-1.fna&_nc_gid=pEEiBzmHrB3QjFGusYfxyA&oh=00_AfYil_6v-Ppnkuy8nJDygxq4BRexWwqiMi5m97uUaRi14A&oe=68C7D2E1" alt="Novios 1">
+    <img src="https://scontent.fcor9-1.fna.fbcdn.net/v/t39.30808-6/475515475_927293252821833_7958589416261262247_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFlJn8HcVtHkpJDn06y6d2xsEnilmzCGiKwSeKWbMIaIiafp9PFz7z-Zb424qOB9i_41azrODMLTE5keUHQ-wKi&_nc_ohc=QAkl5mpe00sQ7kNvwHWlpEx&_nc_oc=AdkgHulRciNzOupxg6H58sWCreM8b5WHUdeOTjT13oV-5eMxBvgysOJ6hRYVydbaXIY&_nc_zt=23&_nc_ht=scontent.fcor9-1.fna&_nc_gid=m7oxKS8viysXi74OwnGQIw&oh=00_Afap151uI9Jir33g_Zt18wS5NPOUktRSY-iN7plQDJIw-g&oe=68C7DF79" alt="Novios 2">
+  </section>
 
-    // Timeline items appear with stagger
-    const timeline = document.querySelectorAll('.timeline .item');
-    timeline.forEach((it,i)=>{
-      setTimeout(()=>it.classList.add('show'), 350 + i * 180);
-    });
+  <section class="mapa">
+    <h2>📍 Ubicación</h2>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6833.028015657715!2d-64.1813082!3d-31.4200839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a28f4ef9a7c7%3A0xb2c3569f2c75f1a!2sSal%C3%B3n%20Las%20Estrellas!5e0!3m2!1ses-419!2sar!4v1691234567890" allowfullscreen loading="lazy"></iframe>
+  </section>
 
-    // Modal open/close
-    const modal = document.getElementById('modal');
-    document.getElementById('rsvpBtn').addEventListener('click', ()=> modal.classList.add('open'));
-    document.getElementById('closeModal').addEventListener('click', ()=> modal.classList.remove('open'));
-    modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.classList.remove('open'); });
+  <section class="itinerario">
+    <h2>🕰️ Itinerario del Evento</h2>
+    <ul class="timeline">
+      <li><b>17:00 hs</b> – Ceremonia Civil en el Salón 🌸</li>
+      <li><b>18:00 hs</b> – Ceremonia Religiosa en la Iglesia ⛪</li>
+      <li><b>20:00 hs</b> – Cena de Gala 🍽️✨</li>
+      <li><b>22:00 hs</b> – Fiesta y Baile 🎶💃🕺</li>
+      <li><b>03:00 hs</b> – Despedida y cierre 🌙</li>
+    </ul>
+  </section>
 
-    // Form submit (demo) — aquí podés reemplazar por fetch a tu backend
-    document.getElementById('rsvpForm').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const guests = document.getElementById('guests').value;
-      const message = document.getElementById('message').value;
-      // Simular envío
-      alert(`Gracias ${name}! Confirmaste ${guests} invitado(s).`);
-      modal.classList.remove('open');
-      e.target.reset();
-    });
+  <section class="precio">
+    💌 El valor de la tarjeta es de <b>$X</b>, a abonar <b>30 días antes de la boda</b> 💸
+  </section>
 
-    // Accessibility: close modal with Esc
-    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') modal.classList.remove('open'); });
-  </script>
+  <section class="rsvp">
+    <h2>✨ Confirmá tu asistencia ✨</h2>
+    <button class="btn-si" onclick="window.open('https://wa.me/543517521732?text=Hola!%20🎉%20Felicidades%20por%20su%20casamiento%20💍✨%20Confirmo%20mi%20asistencia%20🙌🥂', '_blank')">✅ Sí, asistiré</button>
+    <button class="btn-no" onclick="window.open('https://wa.me/543517521732?text=Hola!%20🎉%20Felicidades%20por%20su%20casamiento%20💍✨%20Pero%20lamentablemente%20no%20puedo%20asistir%20😔🌹', '_blank')">❌ No podré ir</button>
+  </section>
 </body>
 </html>
